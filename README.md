@@ -1,7 +1,7 @@
-- 👋 Hi, my name is Christina
-- 👀 I have a bachelor's degree in chemistry and I am now an aspiring data analyst 
-- 🌱 I’m currently learning SQL and R through the Google Data Analytics course. I am interested in learning Python in the near future. 
-- 😄 Pronouns: she/her/hers
+👋 Hi, my name is Christina. 
+I am an aspiring data analyst with a background in chemistry. 
+I am currently learning SQL, R and Tableau and am interested in learning Python in the near future. 
+
 
 <!---
 christinamatu/christinamatu is a ✨ special ✨ repository because its `README.md` (this file) appears on your GitHub profile.
