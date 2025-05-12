@@ -1,0 +1,176 @@
+This is a capstone project that I worked on for my Google Data Analytics certification using R. Please use the links below to view the entire project. 
+
+https://christinapmatu.wixsite.com/christinamatu/post/case-study-bellabeat-marketing-strategy-using-r-tableau
+https://public.tableau.com/app/profile/christina.matu/viz/BellaBeatCaseStudy_17091678864490/Story1
+
+# -----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Loading packages in R Studio and getting to know my data:
+install.packages("tidyverse")
+install.packages("dplyr")
+install.packages("ggplot2")
+
+library(tidyverse)
+library(dplyr)
+library(ggplot2)
+library(readr)
+
+daily_activity <- read_csv("Fitabase Data 4.12.16-5.12.16/dailyActivity_merged.csv")
+View(daily_activity)
+
+hourly_calories <- read_csv("Fitabase Data 4.12.16-5.12.16/hourlyCalories_merged.csv")
+View(hourly_calories)
+
+hourly_intensities <- read_csv("Fitabase Data 4.12.16-5.12.16/hourlyIntensities_merged.csv")
+View(hourly_intensities)
+
+hourly_steps <- read_csv("Fitabase Data 4.12.16-5.12.16/hourlySteps_merged.csv")
+View(hourly_steps)
+
+sleep <- read.csv("Fitabase Data 4.12.16-5.12.16/sleepDay_merged.csv")
+View(sleep)
+
+weight <- read.csv("Fitabase Data 4.12.16-5.12.16/weightLogInfo_merged.csv")
+View(weight)
+
+head(daily_activity)
+
+# Manipulating and cleaning my data using Pipes:
+new_daily_activity <- daily_activity %>% 
+  drop_na() %>% 
+  distinct()
+
+new_hourly_calories <- hourly_calories %>% 
+  drop_na() %>% 
+  distinct()
+
+new_hourly_intensities <- hourly_intensities %>% 
+  drop_na() %>% 
+  distinct()
+
+new_hourly_steps <- hourly_steps %>% 
+  drop_na() %>% 
+  distinct()
+
+new_sleep <- sleep %>% 
+  drop_na() %>% 
+  distinct()
+
+new_weight <- weight %>% 
+  drop_na() %>% 
+  distinct()
+
+## There is significant change in data for weight
+
+# Data verification:
+sum(duplicated(new_daily_activity))
+[1] 0
+sum(duplicated(new_hourly_calories))
+[1] 0
+sum(duplicated(new_hourly_steps))
+[1] 0
+sum(duplicated(new_hourly_intensities))
+[1] 0
+sum(duplicated(new_sleep))
+[1] 0
+sum(duplicated(new_weight))
+[1] 0
+
+# Formatting dates to weekday: 
+new_daily_activity <- new_daily_activity %>% 
+  mutate( Weekday = weekdays(as.Date(ActivityDate, "%m/%d/%Y")))
+
+# Determining unique participants in each data frame: 
+n_distinct(new_daily_activity$Id)
+[1] 33
+n_distinct(new_hourly_calories$Id)
+[1] 33
+n_distinct(new_hourly_steps$Id)
+[1] 33
+n_distinct(new_hourly_intensities$Id)
+[1] 33
+n_distinct(new_sleep$Id)
+[1] 24
+n_distinct(new_weight$Id)
+[1] 2
+
+# Observations in each data frame: 
+nrow(new_daily_activity)
+[1] 940
+nrow(new_hourly_calories)
+[1] 22099
+nrow(new_hourly_steps)
+[1] 22099
+nrow(new_hourly_intensities)
+[1] 22099
+nrow(new_sleep)
+[1] 410
+nrow(new_weight)
+[1] 2
+
+# Determining the relationship between smart device usage per day of the week:
+new_daily_activity$Weekday <- factor(new_daily_activity$Weekday, levels = c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"))
+
+ggplot(data=new_daily_activity)+ 
+  geom_bar(mapping=aes(x=factor(new_daily_activity$Weekday, levels = c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")), fill=Weekday))+
+  labs(title="Usage Per Day of the Week", x="Weekday")
+
+# Relationship between total steps taken and calories burned per weekday:
+ggplot(data=new_daily_activity)+
+  geom_smooth(mapping=aes(x=TotalSteps, y=Calories, color=Weekday))+
+  facet_wrap(~Weekday)+
+  labs(title="Correlation between Total Steps and Calories Per Day of Week")
+
+# A different perspective on total steps vs. calories burned:
+ggplot(data=new_daily_activity, aes(x=TotalSteps, y=Calories, color=Weekday))+
+  geom_point()+
+  geom_smooth()+
+  labs(title="Calories Burned vs. Total Steps Taken")
+
+# Summary of total steps and calories: 
+new_daily_activity %>%  
+  select(TotalSteps,
+         Calories) %>%
+  summary()
+
+# Calories burned at very active minutes: 
+ggplot(data=new_daily_activity, aes(x=VeryActiveMinutes, y=Calories, color=VeryActiveMinutes))+
+  geom_point()+
+  geom_smooth()+
+  labs(title="Calories Burned at Very Active Minutes")
+
+# Calories burned at sedentary active minutes: 
+ggplot(data=new_daily_activity, aes(x=SedentaryMinutes, y=Calories, color=SedentaryMinutes))+
+  geom_point()+
+  geom_smooth()+
+  labs(title="Calories Burned at Sedentary Active Minutes")
+
+# Summary of calories burned and the average values of very active and sedentary minutes:
+new_daily_activity %>% 
+  summarise(Avg_VeryActiveMinutes=mean(VeryActiveMinutes), 
+            Avg_SedentaryMinutes=mean(SedentaryMinutes), 
+            Max_Calories=max(Calories),
+            Min_Calories=min(Calories))
+
+# Relationship between total minutes asleep and total minutes spent in bed:
+ggplot(data=new_sleep, aes(x=TotalTimeInBed, y=TotalMinutesAsleep))+
+  geom_point()+
+  geom_smooth()+
+  labs(title="Total Minutes Asleep in Bed")
+
+# Relationship between total minutes asleep and total minutes spent in bed by Day of Week:
+sleep_weekdays <- new_sleep %>% 
+  mutate( Weekday = weekdays(as.Date(SleepDay, "%m/%d/%Y")))
+
+sleep_weekdays$Weekday <- factor(sleep_weekdays$Weekday, levels = c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"))
+
+ggplot(data=sleep_weekdays, aes(x=TotalTimeInBed, y=TotalMinutesAsleep, color=Weekday))+
+  geom_point()+
+  geom_smooth()+
+  facet_wrap(~Weekday)+
+  labs(title="Total Minutes Asleep in Bed by Day of Week")
+
+# Summary of total sleep records, total minutes asleep and total time spent in bed:
+new_sleep %>%  
+  select(TotalSleepRecords, TotalMinutesAsleep, TotalTimeInBed) %>%
+  summary()
