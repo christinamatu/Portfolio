@@ -1,5 +1,5 @@
 👋 Hi, my name is Christina. 
-I am an aspiring data scientist with a background in chemistry. Please feel free to look at some of the projects I worked on!
+I am currently a masters of science in analytics student at Georgia Tech! ⋆˚✿˖°𐙚 Please feel free to look at some of the projects I worked on.
 
 <!---
 christinamatu/christinamatu is a ✨ special ✨ repository because its `README.md` (this file) appears on your GitHub profile.
