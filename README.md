@@ -1,4 +1,4 @@
-૮₍ • ˕ - ₎ა♡₊˚ °❀⋆.ೃ࿔*:･°❀⋆.
+°❀⋆.ೃ࿔*:･°❀⋆. ૮₍ • ˕ - ₎ა♡₊˚  °❀⋆.ೃ࿔*:･°❀⋆.
 
 🎀 Hello, my name is Christina. 
 I am currently a masters of science in analytics student at Georgia Tech! Please feel free to look at some of the projects I worked on.
