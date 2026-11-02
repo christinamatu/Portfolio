@@ -154,3 +154,104 @@ nrow(new_weight)
 ```
 
 # Analyze
+#### Determining the relationship between smart device usage per day of the week: 
+```
+new_daily_activity$Weekday <- factor(new_daily_activity$Weekday, levels = c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"))
+
+ggplot(data=new_daily_activity)+ 
+  geom_bar(mapping=aes(x=factor(new_daily_activity$Weekday, levels = c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")), fill=Weekday))+
+  labs(title="Usage Per Day of the Week", x="Weekday")
+```
+According to the bar graph above, Tuesdays have the most smart device usage by 30 FitBit participants with a number of 150 count. Coming in very close are Wednesdays and Thursdays with a count value of exactly 150 and a count value of a little less than 150, respectively. 
+
+#### Relationship between total steps taken and calories burned per weekday: 
+```
+ggplot(data=new_daily_activity)+
+  geom_smooth(mapping=aes(x=TotalSteps, y=Calories, color=Weekday))+
+  facet_wrap(~Weekday)+
+  labs(title="Correlation between Total Steps and Calories Per Day of Week")
+```
+The correlation between total steps taken and calories burned are linear on most days except for Sunday despite having the most total steps of over 35,000 steps. On Sunday, there seems to be a plateau in total calories burned after 25,000 steps. On the other hand, Saturday has the most calories burned at 4,500 calories over a course of 30,000 total steps. 
+
+#### A different perspective on total steps vs. calories burned:
+```
+ggplot(data=new_daily_activity, aes(x=TotalSteps, y=Calories, color=Weekday))+
+  geom_point()+
+  geom_smooth()+
+  labs(title="Calories Burned vs. Total Steps Taken")
+```
+
+#### Summary of total steps and calories: 
+```
+new_daily_activity %>%  
+  select(TotalSteps,
+         Calories) %>%
+  summary()
+```
+As expected, the graphs above shows that as the more steps are being taken, the more calories are burned with the exception of some outliers. The maximum total steps taken are 36,019 steps whereas the minimum steps taken are 0 steps and the maximum calories burned is 4,900 calories and the minimum calories burned are 0 calories. 
+
+#### Calories burned at very active minutes: 
+```
+ggplot(data=new_daily_activity, aes(x=VeryActiveMinutes, y=Calories, color=VeryActiveMinutes))+
+  geom_point()+
+  geom_smooth()+
+  labs(title="Calories Burned at Very Active Minutes")
+```
+
+#### Calories burned at sedentary active minutes: 
+```
+ggplot(data=new_daily_activity, aes(x=SedentaryMinutes, y=Calories, color=SedentaryMinutes))+
+  geom_point()+
+  geom_smooth()+
+  labs(title="Calories Burned at Sedentary Active Minutes")
+```
+
+#### Summary of calories burned and the average values of very active and sedentary minutes:
+```
+new_daily_activity %>% 
+  summarise(Avg_VeryActiveMinutes=mean(VeryActiveMinutes), 
+            Avg_SedentaryMinutes=mean(SedentaryMinutes), 
+            Max_Calories=max(Calories),
+            Min_Calories=min(Calories))
+```
+When looking at the graphs for the calories burned at various minutes, we can see that there is a linear correlation between calories burned at more active minutes. We also see that majority of the users are burning between the 1,500 to the 3,000 calories range in less than 50 minutes. However, at less active minutes, a significant number of users are taking more than 1,000 minutes to burn less than 3,000 calories. The average very active minutes is 21.2 minutes and the average sedentary active minutes is 991.0 minutes. The maximum calories burned is 4,900 calories and the minimum calories burned is 0 calories. Overall, participants are still burning high calories regardless of how long it takes to burn them. 
+
+#### Relationship between total minutes asleep and total minutes spent in bed:
+```
+ggplot(data=new_sleep, aes(x=TotalTimeInBed, y=TotalMinutesAsleep))+
+  geom_point()+
+  geom_smooth()+
+  labs(title="Total Minutes Asleep in Bed")
+```
+
+#### Relationship between total minutes asleep and total minutes spent in bed by Day of Week:
+```
+sleep_weekdays <- new_sleep %>% 
+  mutate( Weekday = weekdays(as.Date(SleepDay, "%m/%d/%Y")))
+
+sleep_weekdays$Weekday <- factor(sleep_weekdays$Weekday, levels = c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"))
+
+ggplot(data=sleep_weekdays, aes(x=TotalTimeInBed, y=TotalMinutesAsleep, color=Weekday))+
+  geom_point()+
+  geom_smooth()+
+  facet_wrap(~Weekday)+
+  labs(title="Total Minutes Asleep in Bed by Day of Week")
+```
+
+#### Summary of total sleep records, total minutes asleep and total time spent in bed:
+```
+new_sleep %>%  
+  select(TotalSleepRecords, TotalMinutesAsleep, TotalTimeInBed) %>%
+  summary()
+```
+As expected, the more time spent being in bed, the more sleep participants get. The maximum number of sleeps recorded is 3 with a minimum number of sleeps recorded being 1. The maximum total minutes asleep is 796 minutes (13.3 hours) and the minimum total minutes asleep is 58.0 minutes. The maximum total time in bed is 961 minutes (16.0 hours) and the minimum total time in bed is 61.0 minutes. This data suggests that some participants may have a busier schedule than others leading to shorter time spent in bed and an overall shorter sleep time. 
+
+# Share and Act
+I have shared my presentation on Tableau. Click [here](https://public.tableau.com/app/profile/christina.matu/viz/BellaBeatCaseStudy_17091678864490/Story1) to learn more about my findings. 
+
+#### Key takeaways: 
+- Taking more steps leads to more calories being burned
+- Higher calories can be burned regardless of workout intensity levels (highly active vs. sedentary)
+- More time spent in bed overall means more time spent sleeping 
+
+<img width="740" height="548" alt="tableau" src="https://github.com/user-attachments/assets/68eb004a-9d5a-467d-a7db-cdfbf7e482f4" />
