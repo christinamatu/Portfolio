@@ -1,3 +1,5 @@
+<img width="589" height="173" alt="bellabeat" src="https://github.com/user-attachments/assets/d0372207-34b2-439b-ab8e-a5e2ec95208a" />
+
 # Introduction
 This is a capstone project I worked on for my Google Data Analytics course. In this case study, I performed data analysis for Bellabeat, a high-tech manufacturer of health-focused products for women. I analyzed smart device data to gain insight on how customers are using their smart devices. In order to answer the key business questions, I followed the steps of the data analysis process: Ask, Prepare, Process, Analyze, Share and Act. 
 
