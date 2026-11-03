@@ -26,7 +26,7 @@ Urška Sršen and Sando Mur founded Bellabeat, a high-tech company that manufact
 - Key stakeholders: Urška Sršen and Sando Mur
 
 # Prepare 
-The data source is FitBit Fitness Tracker Data (CC0: Public Domain, dataset by Mobius) from Kaggle by 30 FitBit participants. 
+The data source is [FitBit Fitness Tracker Data](https://www.kaggle.com/datasets/arashnic/fitbit) (CC0: Public Domain, dataset by Mobius) from Kaggle by 30 FitBit participants. 
 
 A good data source is ROCCC, which stands for Reliable, Original, Comprehensive, Current and Cited. 
 - Reliability: The dataset is provided by 30 FitBit users who consented to be a part of a survey via Amazon Mechanical Turk from 03/12/2016 to 05/12/2016. 
