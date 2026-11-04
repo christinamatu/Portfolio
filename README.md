@@ -5,7 +5,7 @@ You can click the Preview link to take a look at your changes.
 
 <img width="1584" height="396" alt="Purple and Peach Fluid Name LinkedIn Banner" src="https://github.com/user-attachments/assets/940c5601-b8aa-461e-940c-47b25b045024" />
 
-## Hi there, I'm Christina 
+## Hello, I'm Christina 
 🔬 Research Associate in an R&D microscopy lab, analyzing material characterization 
 
 🎓 Master of Science in Analytics Student at Georgia Tech
@@ -14,7 +14,5 @@ You can click the Preview link to take a look at your changes.
 
 💻 Skilled in Python, R, SQL, and Statistical Modeling
 
-📂 This portfolio contains projects that showcase my technical and analytical skills through real-world case studies and hands-on data analysis.
-
-Thanks for stopping by!
+This portfolio contains projects that showcase my technical and analytical skills through real-world case studies and hands-on data analysis. Thanks for stopping by! 
 
