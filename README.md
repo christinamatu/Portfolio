@@ -8,7 +8,7 @@ You can click the Preview link to take a look at your changes.
 
 🎓 Master of Science in Analytics Student at Georgia Tech
 
-📊 Interested in Data Science, Machine Learning, and Data Visualization
+📊 Passionate about Data Science, Machine Learning and Scientific Data Analysis
 
 💻 Skilled in Python, R, SQL, and Statistical Modeling
 
